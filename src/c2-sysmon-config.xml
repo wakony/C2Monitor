@@ -1,0 +1,84 @@
+<!-- C2Monitor Sysmon Configuration v1.0.0
+     Only browser HTTP/HTTPS is excluded. Non-browser traffic on 80/443 IS logged
+     because C2 commonly uses standard ports to blend in. -->
+<Sysmon schemaversion="4.90">
+  <HashAlgorithms>md5,sha256</HashAlgorithms>
+  <EventFiltering>
+    <RuleGroup name="ProcessCreate" groupRelation="or">
+      <ProcessCreate onmatch="exclude">
+        <Image condition="is">C:\Windows\System32\SearchIndexer.exe</Image>
+        <Image condition="is">C:\Windows\System32\backgroundTaskHost.exe</Image>
+        <Image condition="is">C:\Windows\System32\RuntimeBroker.exe</Image>
+        <Image condition="is">C:\Windows\System32\taskhostw.exe</Image>
+      </ProcessCreate>
+    </RuleGroup>
+    <RuleGroup name="NetworkConnect" groupRelation="or">
+      <NetworkConnect onmatch="exclude">
+        <Rule groupRelation="and">
+          <Image condition="is">C:\Program Files\Mozilla Firefox\firefox.exe</Image>
+          <DestinationPort condition="is">443</DestinationPort>
+        </Rule>
+        <Rule groupRelation="and">
+          <Image condition="is">C:\Program Files\Mozilla Firefox\firefox.exe</Image>
+          <DestinationPort condition="is">80</DestinationPort>
+        </Rule>
+        <Rule groupRelation="and">
+          <Image condition="is">C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe</Image>
+          <DestinationPort condition="is">443</DestinationPort>
+        </Rule>
+        <Rule groupRelation="and">
+          <Image condition="is">C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe</Image>
+          <DestinationPort condition="is">80</DestinationPort>
+        </Rule>
+        <Rule groupRelation="and">
+          <Image condition="is">C:\Program Files\Google\Chrome\Application\chrome.exe</Image>
+          <DestinationPort condition="is">443</DestinationPort>
+        </Rule>
+        <Rule groupRelation="and">
+          <Image condition="is">C:\Program Files\Google\Chrome\Application\chrome.exe</Image>
+          <DestinationPort condition="is">80</DestinationPort>
+        </Rule>
+        <DestinationIp condition="is">127.0.0.1</DestinationIp>
+        <DestinationIp condition="is">::1</DestinationIp>
+      </NetworkConnect>
+    </RuleGroup>
+    <RuleGroup name="DnsQuery" groupRelation="or">
+      <DnsQuery onmatch="exclude">
+        <QueryName condition="end with">.microsoft.com</QueryName>
+        <QueryName condition="end with">.windowsupdate.com</QueryName>
+        <QueryName condition="end with">.windows.com</QueryName>
+        <QueryName condition="end with">.msftncsi.com</QueryName>
+        <QueryName condition="end with">.office.com</QueryName>
+        <QueryName condition="end with">.office365.com</QueryName>
+      </DnsQuery>
+    </RuleGroup>
+    <RuleGroup name="FileCreate" groupRelation="or">
+      <FileCreate onmatch="include">
+        <TargetFilename condition="contains">\AppData\Local\Temp\</TargetFilename>
+        <TargetFilename condition="contains">\Users\Public\</TargetFilename>
+        <TargetFilename condition="contains">\Windows\Temp\</TargetFilename>
+        <TargetFilename condition="end with">.exe</TargetFilename>
+        <TargetFilename condition="end with">.dll</TargetFilename>
+        <TargetFilename condition="end with">.ps1</TargetFilename>
+        <TargetFilename condition="end with">.bat</TargetFilename>
+        <TargetFilename condition="end with">.cmd</TargetFilename>
+        <TargetFilename condition="end with">.vbs</TargetFilename>
+        <TargetFilename condition="end with">.hta</TargetFilename>
+        <TargetFilename condition="end with">.scr</TargetFilename>
+      </FileCreate>
+    </RuleGroup>
+    <RuleGroup name="ProcessAccess" groupRelation="or">
+      <ProcessAccess onmatch="include">
+        <TargetImage condition="is">C:\Windows\System32\lsass.exe</TargetImage>
+      </ProcessAccess>
+    </RuleGroup>
+    <RuleGroup name="ImageLoad" groupRelation="or">
+      <ImageLoad onmatch="include">
+        <ImageLoaded condition="contains">\AppData\</ImageLoaded>
+        <ImageLoaded condition="contains">\Temp\</ImageLoaded>
+        <ImageLoaded condition="contains">\Downloads\</ImageLoaded>
+        <ImageLoaded condition="contains">\Users\Public\</ImageLoaded>
+      </ImageLoad>
+    </RuleGroup>
+  </EventFiltering>
+</Sysmon>

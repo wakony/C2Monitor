@@ -1,0 +1,82 @@
+{
+    "_comment": "C2Monitor Configuration - Copy to C:\\ProgramData\\C2Monitor\\config.json and customize",
+    "version": "1.0.0",
+
+    "scanning": {
+        "sampleIntervalSeconds": 30,
+        "sampleCount": 20,
+        "beaconJitterThreshold": 0.30,
+        "minBeaconSamples": 4,
+        "alertCooldownMinutes": 60,
+        "threatIntelRefreshHours": 6,
+        "maxLogSizeMB": 10
+    },
+
+    "c2Ports": [
+        4444, 4445, 5555, 5556,
+        8443, 8888,
+        1234, 1337, 2222,
+        50050, 50051,
+        6666, 6667, 6697,
+        9090, 9999,
+        4443, 8880, 7443
+    ],
+
+    "trustedProcesses": [
+        "svchost", "System", "Idle",
+        "firefox", "chrome", "msedge",
+        "SearchHost", "OneDrive", "Teams", "ms-teams",
+        "Spotify", "spotify", "Signal", "slack",
+        "ProtonVPN", "ProtonVPNService", "openvpn", "wireguard",
+        "WindowsTerminal", "explorer", "RuntimeBroker", "sihost",
+        "SecurityHealthService", "MsMpEng", "MBAMService", "mbamtray",
+        "docker", "com.docker.backend", "vpnkit",
+        "Sysmon64", "WmiPrvSE", "spoolsv", "lsass", "services",
+        "claude", "code", "git", "ssh",
+        "Widgets", "WidgetService", "SgrmBroker", "dasHost", "dllhost"
+    ],
+
+    "officeProcesses": [
+        "WINWORD", "EXCEL", "POWERPNT", "OUTLOOK",
+        "MSACCESS", "ONENOTE", "MSPUB", "VISIO"
+    ],
+
+    "suspiciousPaths": [
+        "\\AppData\\Local\\Temp\\",
+        "\\Users\\Public\\",
+        "\\Windows\\Temp\\",
+        "\\ProgramData\\"
+    ],
+
+    "blockchainRpcDomains": [
+        "trongrid.io", "tronstack.io", "tronapi.com",
+        "aptoslabs.com", "aptos.dev",
+        "bsc-dataseed.binance.org", "bsc-rpc.publicnode.com", "bscscan.com",
+        "infura.io", "alchemy.com", "quicknode.com", "cloudflare-eth.com",
+        "solana.com", "helius.dev", "genesysgo.net",
+        "api.avax.network", "snowtrace.io",
+        "polygonscan.com", "polygon-rpc.com",
+        "chainstack.com", "getblock.io", "ankr.com",
+        "llamarpc.com", "drpc.org"
+    ],
+
+    "blockchainTrustedProcesses": [
+        "MetaMask", "Exodus", "Ledger Live", "Phantom",
+        "brave", "opera",
+        "firefox", "chrome", "msedge",
+        "solflare", "trust-wallet"
+    ],
+
+    "buildToolProcessNames": [
+        "node", "npm", "npx", "pnpm", "yarn",
+        "next", "vite", "webpack", "esbuild", "turbo",
+        "bun", "deno", "tsx", "ts-node",
+        "rollup", "parcel"
+    ],
+
+    "devGuard": {
+        "enabled": true,
+        "monitorIntervalSeconds": 15,
+        "maxSessionHours": 12
+    }
+}
