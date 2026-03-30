@@ -2,6 +2,8 @@
 
 Lightweight Command & Control beacon detection for Windows. Catches malware callbacks that your antivirus misses.
 
+> **See also: [CerberusWard](https://github.com/wakony/cerberusward)** — static supply chain scanner that catches compromised code BEFORE it runs. Use CerberusWard for prevention, C2Monitor for runtime detection. Together they provide full-lifecycle supply chain protection.
+
 ## What It Does
 
 C2Monitor detects malware that has already bypassed your antivirus and is "phoning home" to an attacker's server. It catches:
@@ -129,7 +131,7 @@ Each alert includes: severity, description, process name, PID, full file path, r
 
 ## See Also
 
-**[Guardian](https://github.com/wakony/guardian)** — Pre-build supply chain defense. While C2Monitor detects blockchain C2 calls *during* builds, Guardian's `config-check` scanner catches the injected code *before* it runs. Use both together: Guardian scans your config files for obfuscated payloads before `npm install` / `npm run build`, and C2Monitor watches the network if anything slips through.
+**[CerberusWard](https://github.com/wakony/cerberusward)** — Static supply chain integrity scanner. While C2Monitor detects blockchain C2 calls *during* builds, CerberusWard catches the injected code *before* it runs. Use both together: CerberusWard scans your config files for obfuscated payloads before `npm install` / `npm run build`, and C2Monitor watches the network if anything slips through.
 
 ## Uninstall
 
@@ -168,3 +170,5 @@ See [LICENSE](LICENSE) for full MIT license terms.
 ## License
 
 MIT
+
+Author: Wakony
